@@ -34,7 +34,7 @@ public class Controller {
    @Autowired
     private OptionService optionservice;
 
-    //登录验证
+    //登录验证wqqeeqw
     @RequestMapping("logining")
     public ModelAndView login( User user, ModelAndView model,HttpSession session) {
     User u1=Uservice.login(user);
