@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.Optionsdao">
+    <delete id="odel" parameterType="int">
+        delete from options where osid=#{osid}
+    </delete>
+    <insert id="oins" parameterType="Options">
+        <selectKey order="BEFORE" resultType="int" keyProperty="oid1" >
+            select seq_options.nextval from dual
+        </selectKey>
+        insert into options values(#{oid1},#{content1},#{osid})
+    </insert>
+    <update id="oup" parameterType="Options">
+         update options set content1 =#{content1} where oid1=#{oid1}
+    </update>
+    <select id="xiangxi" parameterType="int" resultType="map">
+        select a.oid1 oid1, a.content1 nei, count(b.oid1) danpiao from options a
+       inner join subject c on c.sid1 = a.osid and c.sid1 = #{sid1}
+       left join item b on a.osid = b.sid1 and a.oid1 = b.oid1
+       group by a.oid1,a.content1 ,title
+    </select>
+    <delete id="delbyoid" parameterType="int">
+        delete  from options where oid1=#{oid1}
+  </delete>
+</mapper>

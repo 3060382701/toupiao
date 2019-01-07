@@ -1,0 +1,20 @@
+package com.cssl.dao;
+
+import com.cssl.pojo.Subject;
+
+import java.util.List;
+import java.util.Map;
+
+public interface Subjectdao {
+    //进行点击进入
+    public Map<String,Object> selectone(Integer sid);
+
+    public List<Map<String,Object>> xiang(Integer sid);
+    //点击添加新投票
+    public int sins(Subject subject);
+
+    //删除subject
+    public int sdel(Integer sid);
+    //修改subject
+    public int sup(Subject subject);
+}

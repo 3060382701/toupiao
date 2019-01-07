@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.Subjectdao">
+    <select id="selectone" resultType="map" parameterType="int">
+        select a.sid1 sid1,title ,count(distinct b.oid1) xuan,count(c.sid1) piao,a.type1 from subject a
+        inner join options b on a.sid1=b.osid
+        left join item c on a.sid1=c.sid1 and c.oid1=b.oid1
+        where a.sid1 = #{sid1}
+        group by a.sid1,title,a.type1
+        order by a.sid1 desc
+    </select>
+
+    <select id="xiang" parameterType="int" resultType="map">
+        select a.oid1 oid1, a.content1 nei, count(b.oid1) danpiao from options a
+       inner join subject c on c.sid1 = a.osid and c.sid1 = #{sid1}
+       left join item b on a.osid = b.sid1 and a.oid1 = b.oid1
+       group by a.oid1,a.content1,title
+    </select>
+    <delete id="sdel" parameterType="int">
+         delete from subject where sid1=#{sid1}
+    </delete>
+
+    <insert id="sins" parameterType="Subject">
+        <selectKey order="BEFORE" resultType="int" keyProperty="sid1" >
+            select seq_subject.nextval from dual;
+        </selectKey>
+         insert into subject values(#{sid1},#{title1},#{type1})
+    </insert>
+
+    <update id="sup" parameterType="Subject">
+        update subject set title =#{title},type1=#{type1} where sid1=#{sid1}
+    </update>
+</mapper>
